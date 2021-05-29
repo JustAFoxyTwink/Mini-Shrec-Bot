@@ -13,6 +13,8 @@ leftB = 10,
 rightA = 11,
 rightB = 12;
 
+DriveTrain::Direction d = (DriveTrain::Direction) 0;
+
 /**
  * Drivetrain declaration and definition.
  * Creates a new instance of DriveTrain called drive,

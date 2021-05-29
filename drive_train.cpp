@@ -1,3 +1,21 @@
+/*********************************************************************
+** Program Filename: drive_train.h
+** Author: Evan Garrison
+** Date: 05/28/2021
+** Description: implementation file for DriveTrain Class, a class used to control
+** motor controllers in arduino, specifically for a Drive Train
+** Input: Channels for motor controllers, directions for the drivetrain, and speeds
+** Output: Directions and speeds
+*********************************************************************/
+
+/**
+ * Ok, this probably all looks a little strange. Its standard etiquette to divide classes into 
+ * two different files: the header or .h file, and the implemenation or .cpp file. The header file contains
+ * all the variable and function declarations, and the implementation file is where you define all the values
+ * in the header file. This file is where most of the code is.
+ */
+
+//includes the header file, that contains all the declarations
 #include "drive_train.h"
 
 DriveTrain::DriveTrain(int leftChannel1, int leftChannel2, int rightChannel1, int rightChannel2) {
