@@ -1,12 +1,19 @@
-/*********************************************************************
-** Program Filename: drive_train.h
-** Author: Evan Garrison
-** Date: 05/28/2021
-** Description: header file for DriveTrain Class, a class used to control
-** motor controllers in arduino, specifically for a Drive Train
-** Input: Channels for motor controllers, directions for the drivetrain, and speeds
-** Output: Directions and speeds
-*********************************************************************/
+/**
+ * @file drive_train.h
+ * @author Evan Garrison (garrisev@oregonstate.edu)
+ * @brief header file for DriveTrain class
+ * @version 0.1
+ * @date 2021-05-29
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ * @details 
+ * Contains all field, constructor, and member function declarations for the DriveTrain class.
+ * It's standard procedure to split classes into two files - the header file and implementation
+ * file. This is the header file, the file which contains all the variable, constructor, and 
+ * function declarations for the DriveTrain class, as well as the DriveTrain class declaration
+ * itself. It's also where we decide whether each member of the class will be public or private
+ */
 
 /**
  * This little bit probably looks a bit strange to ya. This is called a header guard, its
@@ -24,15 +31,19 @@
 #include "Arduino.h"
 
 /**
- * This is the DriveTrain class declaration. Within it are all the fields and member functions of the
- * class. You'll notice its divided into two sections - public and private. all the items listed under
- * the public tag are available outside the class to any program that includes this class. The items in 
- * the private section are only available within the class-both the header file and implementation file.
+ * @brief class for DriveTrain of 2 or 4 motors, based on arduino
+ * 
+ * @details 
+ * The class is divided into two sections - public and private. public members can be accessed from outside the classes
+ * header and implementation files, and private members cannot.
  */
 class DriveTrain {
+    //public members of DriveTrain class
     public:
         /**
-         * This is a custom type that I created for the three directions that I saw that motors could be 
+         * @brief Direction type
+         * 
+         * @details This is a custom type that I created for the three directions that I saw that motors could be 
          * set to - forward, reverse, or stop. You can create a variable of the type direction by using
          * Direction as the type name, for example: Direction d = FORWARD;
          * Another interesting thing to note as that each value defined in direction also maps to an integer value:

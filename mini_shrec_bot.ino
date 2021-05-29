@@ -1,9 +1,13 @@
-/*********************************************************************
-** Program Filename: mini_shrec_bot.ino
-** Author: Evan Garrison
-** Date: 05/28/2021
-** Description: main driver file for 'lil SHREC car.
-*********************************************************************/
+/**
+ * @file mini_shrec_bot.ino
+ * @author Evan Garrison (garrisev@oregonstate.edu)
+ * @brief main driver file for my SHREC arduino robot
+ * @version 0.1
+ * @date 2021-05-29
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 
 #include "drive_train.h" //includes custom-made DriveTrain class
 
@@ -12,8 +16,6 @@ leftA = 9,
 leftB = 10,
 rightA = 11,
 rightB = 12;
-
-DriveTrain::Direction d = (DriveTrain::Direction) 0;
 
 /**
  * Drivetrain declaration and definition.
@@ -25,7 +27,7 @@ DriveTrain drive(leftA, leftB, rightA, rightB);
 
 void setup()
 {
-    //Serial.begin(9600);
+    Serial.begin(9600);
 }
 
 /**
