@@ -48,13 +48,9 @@ DriveTrain::DriveTrain(int leftChannel1, int leftChannel2, int rightChannel1, in
     pinMode(this->right1, OUTPUT);
     pinMode(this->right2, OUTPUT);
 
-    //we know that this function will throw an exception (more on that later in the file), so this try catch block will handle that.
-    try {
-        setSpeeds(255, 255); //set the initial speeds
-    }
-    catch (String s) {
-        Serial.println(s); //prints an error message out to the serial monitor
-    }
+    this->leftSpeed = 255;
+    this->rightSpeed = 255;
+    
     setDirections(NEUTRAL, NEUTRAL); //Make sure the motors are stopped when a Drive Train is created
 }
 
@@ -158,7 +154,9 @@ void DriveTrain::setSpeeds(int leftS, int rightS) {
     if (this->leftSChannel == -2 && this->rightSChannel == -2) {
         this->leftSpeed = 255; //we always want the speed to be 255 if you can't control the speed
         this->rightSpeed = 255;
-        throw "Unhandled Exception: Motor Controller speed channels were not specified!"; //Throws an exception to the caller
+        //throw "Unhandled Exception: Motor Controller speed channels were not specified!"; //Throws an exception to the caller
+        //I had to comment out the throw, since I just realized arduino doesn't allow exception throwing
+        Serial.println("Can't set speed on a motora controller without PWM speed controller channels.");
     }
     else { //if you can control the speeds of the motors, we'll set them here. To set output for PWM, we use analogWrite.
         analogWrite(leftSChannel, leftSpeed);
