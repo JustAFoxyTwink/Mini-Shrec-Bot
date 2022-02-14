@@ -15,14 +15,17 @@ int //pins used for motor controller
 leftA = 9,
 leftB = 10,
 rightA = 11,
-rightB = 12;
+rightB = 12,
+
+leftS = 5,
+rightS = 6;
 
 /**
  * Drivetrain declaration and definition.
  * Creates a new instance of DriveTrain called drive,
  * with pins leftA, leftB, rightA, rightB
  */
-DriveTrain drive(leftA, leftB, rightA, rightB);
+DriveTrain drive(leftA, leftB, leftS, rightA, rightB, rightS);
 
 
 void setup()
@@ -42,14 +45,18 @@ void setup()
 
 void loop()
 {
+
+    drive.setSpeeds(100, 100);
     //sets motors to forward for 2 seconds
 	drive.setDirections(DriveTrain::FORWARD, DriveTrain::FORWARD);
     delay(2000);
 
+    drive.setSpeeds(50, 50);
     //sets motors to forward and reverse for 2 seconds, should make bot turn
     drive.setDirections(DriveTrain::FORWARD, DriveTrain::REVERSE);
     delay(2000);
 
+    drive.setSpeeds(255, 255);
     //sets motors to reverse for 2 seconds
     drive.setDirections(DriveTrain::REVERSE, DriveTrain::REVERSE);
     delay(2000);
