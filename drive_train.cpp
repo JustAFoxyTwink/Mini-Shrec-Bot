@@ -85,7 +85,7 @@ DriveTrain::DriveTrain(int leftChannel1, int leftChannel2, int leftChannelS, int
     pinMode(this->right2, OUTPUT);
     pinMode(this->rightSChannel, OUTPUT);
 
-    setSpeeds(255, 255); //set initial speeds for DriveTrain object
+    set(0, 0); //set initial speeds for DriveTrain object
     setDirections(NEUTRAL, NEUTRAL); //make sure that the DriveTrain is stopped when its first created.
 }
 
@@ -146,22 +146,25 @@ void DriveTrain::setChannels(int leftChannel1, int leftChannel2, int leftChannel
  * @param leftS speed to set the left motor to 
  * @param rightS speed to set the right motor to 
  */
-void DriveTrain::setSpeeds(int leftS, int rightS) {
+void DriveTrain::set(int leftS, int rightS) {
     this->leftSpeed = leftS; //set the speed variables so we can retrieve them if need be.
     this->rightSpeed = rightS;
 
     //see? those nonsensical pin values came in useful. Now we can check if you are able to control the speed, and if not, we'll throw an exception.
-    if (this->leftSChannel == -2 && this->rightSChannel == -2) {
-        this->leftSpeed = 255; //we always want the speed to be 255 if you can't control the speed
-        this->rightSpeed = 255;
-        //throw "Unhandled Exception: Motor Controller speed channels were not specified!"; //Throws an exception to the caller
-        //I had to comment out the throw, since I just realized arduino doesn't allow exception throwing
-        Serial.println("Can't set speed on a motora controller without PWM speed controller channels.");
+    if (this->leftSChannel != -2 && this->rightSChannel != -2) {
+        analogWrite(leftSChannel, abs(leftSpeed));
+        analogWrite(rightSChannel, abs(rightSpeed));
     }
-    else { //if you can control the speeds of the motors, we'll set them here. To set output for PWM, we use analogWrite.
-        analogWrite(leftSChannel, leftSpeed);
-        analogWrite(rightSChannel, rightSpeed);
-    }
+    Direction r, l;
+    if (leftS < 0) l = REVERSE;
+    else if (leftS > 0) l = FORWARD;
+    else l = NEUTRAL;
+
+    if (rightS < 0) r = REVERSE;
+    else if (rightS > 0) r = FORWARD;
+    else r = NEUTRAL;
+
+    setDirections(l, r);
 }
 
 /**
@@ -176,7 +179,7 @@ void DriveTrain::setSpeeds(int leftS, int rightS) {
  * is called passing by value. When we pass by reference, by appending & to the variable name, the original variable is passed to the function
  * instead, which saves memory and allows the function to actually change the value of the variable passed, a characteristic we make use of in this function.
  */
-void DriveTrain::getSpeeds(int &left, int &right) {
+void DriveTrain::get(int &left, int &right) {
     left = this->leftSpeed;
     right = this->rightSpeed;
 }

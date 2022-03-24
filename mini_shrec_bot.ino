@@ -20,6 +20,9 @@ rightB = 12,
 leftS = 5,
 rightS = 6;
 
+bool do_drive = false;
+bool do_drive_debounce = false;
+
 /**
  * Drivetrain declaration and definition.
  * Creates a new instance of DriveTrain called drive,
@@ -31,6 +34,8 @@ DriveTrain drive(leftA, leftB, leftS, rightA, rightB, rightS);
 void setup()
 {
     Serial.begin(9600);
+
+    pinMode(2, INPUT_PULLUP);
 }
 
 /**
@@ -45,23 +50,23 @@ void setup()
 
 void loop()
 {
+    if (digitalRead(2)) {
+        do_drive_debounce = true;
+    }
+    else if (do_drive_debounce) {
+        do_drive_debounce = false;
+        do_drive = !do_drive;
+    }
+    if (do_drive) {
+        drive.set(150, 150);
+        delay(2000);
+        drive.set(75, -75);
+        delay(1000);
+        drive.set(0, 0);
+        delay(5000);
+    }
 
-    drive.setSpeeds(100, 100);
-    //sets motors to forward for 2 seconds
-	drive.setDirections(DriveTrain::FORWARD, DriveTrain::FORWARD);
-    delay(2000);
-
-    drive.setSpeeds(50, 50);
-    //sets motors to forward and reverse for 2 seconds, should make bot turn
-    drive.setDirections(DriveTrain::FORWARD, DriveTrain::REVERSE);
-    delay(2000);
-
-    drive.setSpeeds(255, 255);
-    //sets motors to reverse for 2 seconds
-    drive.setDirections(DriveTrain::REVERSE, DriveTrain::REVERSE);
-    delay(2000);
-
-    //stops motors for 2 seconds
-    drive.setDirections(DriveTrain::NEUTRAL, DriveTrain::NEUTRAL);
-    delay(2000);
+    Serial.println("Pin 2: " + digitalRead(2));
+    Serial.println("do_drive: " + do_drive);
+    Serial.println("do_drive_debounce: " + do_drive_debounce);
 }

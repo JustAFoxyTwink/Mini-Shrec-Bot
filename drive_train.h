@@ -30,6 +30,8 @@
 //Includes standard library of arduino functions and classes (digitalWrite, pinMode, etc.)
 #include "Arduino.h"
 
+#include <stdlib.h>
+
 /**
  * @brief class for DriveTrain of 2 or 4 motors, based on arduino
  * 
@@ -66,9 +68,8 @@ class DriveTrain {
         DriveTrain(int leftChannel1, int leftChannel2, int rightChannel1, int rightChannel2); //Constructor w/o speed channels
         DriveTrain(int leftChannel1, int leftChannel2, int leftChannelS, int rightChannel1, int rightChannel2, int rightChannelS); //Constructor w/speed channels
 
-        void setSpeeds(int leftS, int rightS); //function to set speeds of motors
-        void getSpeeds(int &left, int &right); //function to retrieve speeds from motors
-        void setDirections(Direction leftD, Direction rightD); //sets direction of motors
+        void set(int leftS, int rightS); //function to set speeds of motors
+        void get(int &left, int &right); //function to retrieve speeds from motors
         void getDirections(Direction &left, Direction &right); //retrieves direction of motors
     private:
         int 
@@ -78,6 +79,7 @@ class DriveTrain {
         rightSpeed; //speed, 0-255 of right motors
         Direction left, right; //Directions for left and right motors
 
+        void setDirections(Direction leftD, Direction rightD); //sets direction of motors
         void setChannels(int leftChannel1, int leftChannel2, int rightChannel1, int rightChannel2); //set pins for motor controller channels
         void setChannels(int leftChannel1, int leftChannel2, int leftChannelS, int rightChannel1, int rightChannel2, int rightChannelS); //overloaded setChannels function, sets pins for motor controller channels including speed pins
 };
